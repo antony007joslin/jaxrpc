@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:v1="http://example.com/employee/service/v1">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <v1:SearchEmployeeRequest>
+            <v1:departmentId>1</v1:departmentId>
+        </v1:SearchEmployeeRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<!-- Made with Bob -->

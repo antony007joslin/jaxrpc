@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java-wsdl-mapping xmlns="http://java.sun.com/xml/ns/j2ee"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                    http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd"
+                    version="1.1">
+
+    <!-- ================================================================ -->
+    <!-- Package Mappings                                                  -->
+    <!-- ================================================================ -->
+    
+    <package-mapping>
+        <package-type>com.example.employee.service.v1</package-type>
+        <namespaceURI>http://example.com/employee/service/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.employee.v1</package-type>
+        <namespaceURI>http://example.com/employee/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.department.service.v1</package-type>
+        <namespaceURI>http://example.com/department/service/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.department.v1</package-type>
+        <namespaceURI>http://example.com/department/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.auth.service.v1</package-type>
+        <namespaceURI>http://example.com/auth/service/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.common.v1</package-type>
+        <namespaceURI>http://example.com/common/v1</namespaceURI>
+    </package-mapping>
+
+    <package-mapping>
+        <package-type>com.example.header.v1</package-type>
+        <namespaceURI>http://example.com/header/v1</namespaceURI>
+    </package-mapping>
+
+    <!-- ================================================================ -->
+    <!-- Service Interface Mappings - EmployeeService                      -->
+    <!-- ================================================================ -->
+    
+    <service-interface-mapping>
+        <service-interface>com.example.employee.service.v1.EmployeeService</service-interface>
+        <wsdl-service-name xmlns:svc="http://example.com/employee/service/v1">svc:EmployeeService</wsdl-service-name>
+        <port-mapping>
+            <port-name>EmployeePort</port-name>
+            <java-port-name>EmployeePort</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.example.employee.service.v1.EmployeePortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:pt="http://example.com/employee/service/v1">pt:EmployeePortType</wsdl-port-type>
+        <wsdl-binding xmlns:bind="http://example.com/employee/service/v1">bind:EmployeeBinding</wsdl-binding>
+        
+        <service-endpoint-method-mapping>
+            <java-method-name>createEmployee</java-method-name>
+            <wsdl-operation>CreateEmployee</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.employee.service.v1.CreateEmployeeRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:CreateEmployeeRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.employee.service.v1.CreateEmployeeResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:CreateEmployeeResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+
+        <service-endpoint-method-mapping>
+            <java-method-name>updateEmployee</java-method-name>
+            <wsdl-operation>UpdateEmployee</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.employee.service.v1.UpdateEmployeeRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:UpdateEmployeeRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.employee.service.v1.UpdateEmployeeResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:UpdateEmployeeResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+
+        <service-endpoint-method-mapping>
+            <java-method-name>getEmployee</java-method-name>
+            <wsdl-operation>GetEmployee</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.employee.service.v1.GetEmployeeRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:GetEmployeeRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.employee.service.v1.GetEmployeeResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:GetEmployeeResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+
+        <service-endpoint-method-mapping>
+            <java-method-name>deleteEmployee</java-method-name>
+            <wsdl-operation>DeleteEmployee</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.employee.service.v1.DeleteEmployeeRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:DeleteEmployeeRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.employee.service.v1.DeleteEmployeeResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:DeleteEmployeeResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+
+    <!-- ================================================================ -->
+    <!-- Service Interface Mappings - EmployeeQueryService                 -->
+    <!-- ================================================================ -->
+    
+    <service-interface-mapping>
+        <service-interface>com.example.employee.service.v1.EmployeeQueryService</service-interface>
+        <wsdl-service-name xmlns:svc="http://example.com/employee/service/v1">svc:EmployeeQueryService</wsdl-service-name>
+        <port-mapping>
+            <port-name>EmployeeQueryPort</port-name>
+            <java-port-name>EmployeeQueryPort</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.example.employee.service.v1.EmployeeQueryPortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:pt="http://example.com/employee/service/v1">pt:EmployeeQueryPortType</wsdl-port-type>
+        <wsdl-binding xmlns:bind="http://example.com/employee/service/v1">bind:EmployeeQueryBinding</wsdl-binding>
+        
+        <service-endpoint-method-mapping>
+            <java-method-name>searchEmployee</java-method-name>
+            <wsdl-operation>SearchEmployee</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.employee.service.v1.SearchEmployeeRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:SearchEmployeeRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.employee.service.v1.SearchEmployeeResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/employee/service/v1">msg:SearchEmployeeResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+
+    <!-- ================================================================ -->
+    <!-- Service Interface Mappings - DepartmentService                    -->
+    <!-- ================================================================ -->
+    
+    <service-interface-mapping>
+        <service-interface>com.example.department.service.v1.DepartmentService</service-interface>
+        <wsdl-service-name xmlns:svc="http://example.com/department/service/v1">svc:DepartmentService</wsdl-service-name>
+        <port-mapping>
+            <port-name>DepartmentPort</port-name>
+            <java-port-name>DepartmentPort</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.example.department.service.v1.DepartmentPortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:pt="http://example.com/department/service/v1">pt:DepartmentPortType</wsdl-port-type>
+        <wsdl-binding xmlns:bind="http://example.com/department/service/v1">bind:DepartmentBinding</wsdl-binding>
+        
+        <service-endpoint-method-mapping>
+            <java-method-name>getDepartments</java-method-name>
+            <wsdl-operation>GetDepartments</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.department.service.v1.GetDepartmentsRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/department/service/v1">msg:GetDepartmentsRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.department.service.v1.GetDepartmentsResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/department/service/v1">msg:GetDepartmentsResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+
+    <!-- ================================================================ -->
+    <!-- Service Interface Mappings - AuthService                          -->
+    <!-- ================================================================ -->
+    
+    <service-interface-mapping>
+        <service-interface>com.example.auth.service.v1.AuthService</service-interface>
+        <wsdl-service-name xmlns:svc="http://example.com/auth/service/v1">svc:AuthService</wsdl-service-name>
+        <port-mapping>
+            <port-name>AuthPort</port-name>
+            <java-port-name>AuthPort</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.example.auth.service.v1.AuthPortType</service-endpoint-interface>
+        <wsdl-port-type xmlns:pt="http://example.com/auth/service/v1">pt:AuthPortType</wsdl-port-type>
+        <wsdl-binding xmlns:bind="http://example.com/auth/service/v1">bind:AuthBinding</wsdl-binding>
+        
+        <service-endpoint-method-mapping>
+            <java-method-name>login</java-method-name>
+            <wsdl-operation>Login</wsdl-operation>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>com.example.auth.service.v1.LoginRequest</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:msg="http://example.com/auth/service/v1">msg:LoginRequestMsg</wsdl-message>
+                    <wsdl-message-part-name>parameters</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>com.example.auth.service.v1.LoginResponse</method-return-value>
+                <wsdl-message xmlns:msg="http://example.com/auth/service/v1">msg:LoginResponseMsg</wsdl-message>
+                <wsdl-message-part-name>parameters</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+
+</java-wsdl-mapping>
+
+<!-- Made with Bob -->

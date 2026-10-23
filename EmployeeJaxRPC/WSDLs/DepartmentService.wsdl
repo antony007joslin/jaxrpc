@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://example.com/department/service/v1"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:dept="http://example.com/department/v1"
+ targetNamespace="http://example.com/department/service/v1">
+
+ <types>
+  <xs:schema 
+      targetNamespace="http://example.com/department/service/v1"
+      xmlns:dept="http://example.com/department/v1"
+      elementFormDefault="qualified">
+
+   <xs:import namespace="http://example.com/department/v1"
+              schemaLocation="../xsd/common/department-types.xsd"/>
+
+   <xs:element name="GetDepartmentsResponse">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="departments" 
+                  type="dept:DepartmentType" 
+                  maxOccurs="unbounded"/>
+     </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+   <xs:element name="GetDepartmentsRequest">
+    <xs:complexType>
+        <xs:sequence/>
+    </xs:complexType>
+   </xs:element>
+  </xs:schema>
+ </types>
+
+ <message name="GetDepartmentsResponseMsg">
+  <part name="parameters" element="tns:GetDepartmentsResponse"/>
+ </message>
+
+ <message name="GetDepartmentsRequestMsg">
+    <part name="parameters" element="tns:GetDepartmentsRequest"/>
+ </message>
+
+ <portType name="DepartmentPortType">
+  <operation name="GetDepartments">
+   <input message="tns:GetDepartmentsRequestMsg"/>
+   <output message="tns:GetDepartmentsResponseMsg"/>
+  </operation>
+ </portType>
+
+ <binding name="DepartmentBinding" type="tns:DepartmentPortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="GetDepartments">
+   <soap:operation soapAction="http://example.com/department/service/v1/GetDepartments"/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+ </binding>
+
+ <service name="DepartmentService">
+  <port name="DepartmentPort" binding="tns:DepartmentBinding">
+   <soap:address location="http://localhost:8080/services/DepartmentService"/>
+  </port>
+ </service>
+
+</definitions>

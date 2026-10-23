@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+    <!-- ================================================================ -->
+    <!-- Global Configuration                                              -->
+    <!-- ================================================================ -->
+    <globalConfiguration>
+        <parameter name="adminPassword" value="admin"/>
+        <parameter name="attachments.Directory" value="./attachments"/>
+        <parameter name="attachments.implementation" 
+                   value="org.apache.axis.attachments.AttachmentsImpl"/>
+        <parameter name="sendXsiTypes" value="true"/>
+        <parameter name="sendMultiRefs" value="true"/>
+        <parameter name="sendXMLDeclaration" value="true"/>
+        <parameter name="axis.sendMinimizedElements" value="true"/>
+        <parameter name="enableNamespacePrefixOptimization" value="false"/>
+        
+        <requestFlow>
+            <handler type="java:org.apache.axis.handlers.JWSHandler">
+                <parameter name="scope" value="session"/>
+            </handler>
+            <handler type="java:org.apache.axis.handlers.JWSHandler">
+                <parameter name="scope" value="request"/>
+                <parameter name="extension" value=".jwr"/>
+            </handler>
+        </requestFlow>
+    </globalConfiguration>
+
+    <!-- ================================================================ -->
+    <!-- Transport Handlers                                                -->
+    <!-- ================================================================ -->
+    <handler name="URLMapper" 
+             type="java:org.apache.axis.handlers.http.URLMapper"/>
+    <handler name="LocalResponder" 
+             type="java:org.apache.axis.transport.local.LocalResponder"/>
+    <handler name="Authenticate" 
+             type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+
+    <!-- ================================================================ -->
+    <!-- Service: EmployeeService                                          -->
+    <!-- ================================================================ -->
+    <service name="EmployeeService" provider="java:RPC" style="document" use="literal">
+        <parameter name="wsdlTargetNamespace"
+                   value="http://example.com/employee/service/v1"/>
+        <parameter name="wsdlServiceElement" value="EmployeeService"/>
+        <parameter name="schemaQualified"
+                   value="http://example.com/employee/service/v1,http://example.com/employee/v1,http://example.com/common/v1,http://example.com/header/v1"/>
+        <parameter name="wsdlServicePort" value="EmployeePort"/>
+        <parameter name="className"
+                   value="com.example.employee.service.v1.EmployeeBindingSkeleton"/>
+        <parameter name="wsdlPortType" value="EmployeePortType"/>
+        <parameter name="typeMappingVersion" value="1.2"/>
+        <parameter name="allowedMethods" value="*"/>
+        <parameter name="scope" value="Session"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!-- Service: EmployeeQueryService                                     -->
+    <!-- ================================================================ -->
+    <service name="EmployeeQueryService" provider="java:RPC" style="document" use="literal">
+        <parameter name="wsdlTargetNamespace"
+                   value="http://example.com/employee/service/v1"/>
+        <parameter name="wsdlServiceElement" value="EmployeeQueryService"/>
+        <parameter name="schemaQualified"
+                   value="http://example.com/employee/service/v1,http://example.com/employee/v1"/>
+        <parameter name="wsdlServicePort" value="EmployeeQueryPort"/>
+        <parameter name="className"
+                   value="com.example.employee.service.v1.EmployeeQueryBindingSkeleton"/>
+        <parameter name="wsdlPortType" value="EmployeeQueryPortType"/>
+        <parameter name="typeMappingVersion" value="1.2"/>
+        <parameter name="allowedMethods" value="*"/>
+        <parameter name="scope" value="Request"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!-- Service: DepartmentService                                        -->
+    <!-- ================================================================ -->
+    <service name="DepartmentService" provider="java:RPC" style="document" use="literal">
+        <parameter name="wsdlTargetNamespace"
+                   value="http://example.com/department/service/v1"/>
+        <parameter name="wsdlServiceElement" value="DepartmentService"/>
+        <parameter name="schemaQualified"
+                   value="http://example.com/department/service/v1,http://example.com/department/v1"/>
+        <parameter name="wsdlServicePort" value="DepartmentPort"/>
+        <parameter name="className"
+                   value="com.example.department.service.v1.DepartmentBindingSkeleton"/>
+        <parameter name="wsdlPortType" value="DepartmentPortType"/>
+        <parameter name="typeMappingVersion" value="1.2"/>
+        <parameter name="allowedMethods" value="*"/>
+        <parameter name="scope" value="Application"/>
+
+        <arrayMapping
+            xmlns:ns="http://example.com/department/service/v1"
+            qname="ns:>GetDepartmentsResponse>departments"
+            type="java:com.example.department.v1.DepartmentType[]"
+            innerType="cmp-ns:DepartmentType" xmlns:cmp-ns="http://example.com/department/v1"
+            encodingStyle=""
+        />
+        <typeMapping
+            xmlns:ns="http://example.com/department/v1"
+            qname="ns:DepartmentType"
+            type="java:com.example.department.v1.DepartmentType"
+            serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping
+            xmlns:ns="http://example.com/department/service/v1"
+            qname="ns:>GetDepartmentsRequest"
+            type="java:com.example.department.service.v1.GetDepartmentsRequest"
+            serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+        />
+    </service>
+
+    <!-- ================================================================ -->
+    <!-- Service: AuthService                                              -->
+    <!-- ================================================================ -->
+    <service name="AuthService" provider="java:RPC" style="document" use="literal">
+        <parameter name="wsdlTargetNamespace"
+                   value="http://example.com/auth/service/v1"/>
+        <parameter name="wsdlServiceElement" value="AuthService"/>
+        <parameter name="schemaQualified"
+                   value="http://example.com/auth/service/v1,http://example.com/common/v1,http://example.com/header/v1"/>
+        <parameter name="wsdlServicePort" value="AuthPort"/>
+        <parameter name="className"
+                   value="com.example.auth.service.v1.AuthBindingSkeleton"/>
+        <parameter name="wsdlPortType" value="AuthPortType"/>
+        <parameter name="typeMappingVersion" value="1.2"/>
+        <parameter name="allowedMethods" value="*"/>
+        <parameter name="scope" value="Request"/>
+
+        <typeMapping
+            xmlns:ns="http://example.com/auth/service/v1"
+            qname="ns:>LoginRequest"
+            type="java:com.example.auth.service.v1.LoginRequest"
+            serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping
+            xmlns:ns="http://example.com/auth/service/v1"
+            qname="ns:>LoginResponse"
+            type="java:com.example.auth.service.v1.LoginResponse"
+            serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping
+            xmlns:ns="http://example.com/common/v1"
+            qname="ns:StatusType"
+            type="java:com.example.common.v1.StatusType"
+            serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping
+            xmlns:ns="http://example.com/header/v1"
+            qname="ns:RequestHeaderType"
+            type="java:com.example.header.v1.RequestHeaderType"
+            serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+        />
+    </service>
+
+    <!-- ================================================================ -->
+    <!-- Transport Configuration                                           -->
+    <!-- ================================================================ -->
+    <transport name="http">
+        <requestFlow>
+            <handler type="URLMapper"/>
+            <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+        </requestFlow>
+        <parameter name="qs:list" 
+                   value="org.apache.axis.transport.http.QSListHandler"/>
+        <parameter name="qs:wsdl" 
+                   value="org.apache.axis.transport.http.QSWSDLHandler"/>
+        <parameter name="qs:method" 
+                   value="org.apache.axis.transport.http.QSMethodHandler"/>
+    </transport>
+
+    <transport name="local">
+        <responseFlow>
+            <handler type="LocalResponder"/>
+        </responseFlow>
+    </transport>
+
+</deployment>
+
+<!-- Made with Bob -->

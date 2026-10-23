@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:cmn="http://example.com/common/v1"
+           targetNamespace="http://example.com/employee/v1"
+           xmlns="http://example.com/employee/v1"
+           elementFormDefault="qualified">
+
+    <xs:import namespace="http://example.com/common/v1"
+           schemaLocation="../common/common-types.xsd"/>
+
+    <xs:complexType name="EmployeeType">
+        <xs:sequence>
+            <xs:element name="empId" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="departmentId" type="xs:int"/>
+            <xs:element name="salary" type="xs:decimal"/>
+            <xs:element name="isPermanent" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

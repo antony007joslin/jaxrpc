@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://example.com/employee/service/v1"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:emp="http://example.com/employee/v1"
+ targetNamespace="http://example.com/employee/service/v1">
+
+ <types>
+  <xs:schema 
+      targetNamespace="http://example.com/employee/service/v1"
+      xmlns:emp="http://example.com/employee/v1"
+      elementFormDefault="qualified">
+
+   <xs:import namespace="http://example.com/employee/v1"
+              schemaLocation="../xsd/employee/employee-types.xsd"/>
+
+   <!-- REQUEST -->
+   <xs:element name="SearchEmployeeRequest">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="departmentId" type="xs:int" minOccurs="0"/>
+     </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+   <!-- RESPONSE -->
+   <xs:element name="SearchEmployeeResponse">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="employees" 
+                  type="emp:EmployeeType" 
+                  maxOccurs="unbounded"/>
+     </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+  </xs:schema>
+ </types>
+
+ <!-- MESSAGES -->
+ <message name="SearchEmployeeRequestMsg">
+  <part name="parameters" element="tns:SearchEmployeeRequest"/>
+ </message>
+
+ <message name="SearchEmployeeResponseMsg">
+  <part name="parameters" element="tns:SearchEmployeeResponse"/>
+ </message>
+
+ <!-- PORT TYPE -->
+ <portType name="EmployeeQueryPortType">
+  <operation name="SearchEmployee">
+   <input message="tns:SearchEmployeeRequestMsg"/>
+   <output message="tns:SearchEmployeeResponseMsg"/>
+  </operation>
+ </portType>
+
+ <!-- BINDING -->
+ <binding name="EmployeeQueryBinding" type="tns:EmployeeQueryPortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="SearchEmployee">
+   <soap:operation soapAction="http://example.com/employee/service/v1/SearchEmployee"/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+ </binding>
+
+ <!-- SERVICE -->
+ <service name="EmployeeQueryService">
+  <port name="EmployeeQueryPort" binding="tns:EmployeeQueryBinding">
+   <soap:address location="http://localhost:8080/services/EmployeeQueryService"/>
+  </port>
+ </service>
+
+</definitions>

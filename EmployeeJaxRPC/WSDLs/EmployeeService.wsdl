@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://example.com/employee/service/v1"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ targetNamespace="http://example.com/employee/service/v1">
+
+ <types>
+  <xs:schema>
+   <xs:import namespace="http://example.com/employee/service/v1"
+              schemaLocation="../xsd/employee/employee-service-types.xsd"/>
+  </xs:schema>
+ </types>
+
+ <!-- Messages -->
+ <message name="CreateEmployeeRequestMsg">
+  <part name="parameters" element="tns:CreateEmployeeRequest"/>
+ </message>
+ <message name="CreateEmployeeResponseMsg">
+  <part name="parameters" element="tns:CreateEmployeeResponse"/>
+ </message>
+
+ <message name="UpdateEmployeeRequestMsg">
+  <part name="parameters" element="tns:UpdateEmployeeRequest"/>
+ </message>
+ <message name="UpdateEmployeeResponseMsg">
+  <part name="parameters" element="tns:UpdateEmployeeResponse"/>
+ </message>
+
+ <message name="GetEmployeeRequestMsg">
+  <part name="parameters" element="tns:GetEmployeeRequest"/>
+ </message>
+ <message name="GetEmployeeResponseMsg">
+  <part name="parameters" element="tns:GetEmployeeResponse"/>
+ </message>
+
+ <message name="DeleteEmployeeRequestMsg">
+  <part name="parameters" element="tns:DeleteEmployeeRequest"/>
+ </message>
+ <message name="DeleteEmployeeResponseMsg">
+  <part name="parameters" element="tns:DeleteEmployeeResponse"/>
+ </message>
+
+ <!-- PortType -->
+ <portType name="EmployeePortType">
+
+  <operation name="CreateEmployee">
+   <input message="tns:CreateEmployeeRequestMsg"/>
+   <output message="tns:CreateEmployeeResponseMsg"/>
+  </operation>
+
+  <operation name="UpdateEmployee">
+   <input message="tns:UpdateEmployeeRequestMsg"/>
+   <output message="tns:UpdateEmployeeResponseMsg"/>
+  </operation>
+
+  <operation name="GetEmployee">
+   <input message="tns:GetEmployeeRequestMsg"/>
+   <output message="tns:GetEmployeeResponseMsg"/>
+  </operation>
+
+  <operation name="DeleteEmployee">
+   <input message="tns:DeleteEmployeeRequestMsg"/>
+   <output message="tns:DeleteEmployeeResponseMsg"/>
+  </operation>
+
+ </portType>
+
+ <!-- Binding -->
+ <binding name="EmployeeBinding" type="tns:EmployeePortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+  <operation name="CreateEmployee">
+   <soap:operation soapAction="CreateEmployee"/>
+   <input><soap:body use="literal"/></input>
+   <output><soap:body use="literal"/></output>
+  </operation>
+
+  <operation name="UpdateEmployee">
+   <soap:operation soapAction="UpdateEmployee"/>
+   <input><soap:body use="literal"/></input>
+   <output><soap:body use="literal"/></output>
+  </operation>
+
+  <operation name="GetEmployee">
+   <soap:operation soapAction="GetEmployee"/>
+   <input><soap:body use="literal"/></input>
+   <output><soap:body use="literal"/></output>
+  </operation>
+
+  <operation name="DeleteEmployee">
+   <soap:operation soapAction="DeleteEmployee"/>
+   <input><soap:body use="literal"/></input>
+   <output><soap:body use="literal"/></output>
+  </operation>
+
+ </binding>
+
+ <!-- Service -->
+ <service name="EmployeeService">
+  <port name="EmployeePort" binding="tns:EmployeeBinding">
+   <soap:address location="http://localhost:8080/services/EmployeeService"/>
+  </port>
+ </service>
+
+</definitions>

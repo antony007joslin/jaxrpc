@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:v1="http://example.com/department/service/v1">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <v1:GetDepartmentsRequest/>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<!-- Made with Bob -->

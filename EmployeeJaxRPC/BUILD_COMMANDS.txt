@@ -1,0 +1,139 @@
+================================================================================
+  EMPLOYEEJAXRPC - BUILD COMMANDS QUICK REFERENCE
+================================================================================
+
+PREREQUISITES
+-------------
+✓ Java JDK 1.8+        (java -version)
+✓ Apache ANT 1.9+      (ant -version)
+✓ Required JARs in lib/ directory (see lib/DEPENDENCIES.md)
+
+BASIC BUILD COMMANDS
+--------------------
+ant clean              # Remove all build artifacts
+ant generate           # Generate Java from WSDL files
+ant compile            # Compile all Java sources
+ant package            # Create WAR file
+ant all                # Clean + Generate + Compile + Package
+ant help               # Display available targets
+
+INDIVIDUAL SERVICE GENERATION
+------------------------------
+ant generate-employee-service      # Generate EmployeeService artifacts
+ant generate-employee-query        # Generate EmployeeQueryService artifacts
+ant generate-department-service    # Generate DepartmentService artifacts
+ant generate-auth-service          # Generate AuthService artifacts
+
+DEPLOYMENT
+----------
+# WebSphere Liberty
+cp dist/EmployeeJaxRPC.war $WLP_HOME/usr/servers/defaultServer/dropins/
+
+# Apache Tomcat
+cp dist/EmployeeJaxRPC.war $CATALINA_HOME/webapps/
+
+# WebSphere Application Server
+# Use Admin Console: Applications > New Application > New Enterprise Application
+
+VERIFICATION
+------------
+# Check services are deployed
+http://localhost:8080/EmployeeJaxRPC/services
+
+# View WSDL
+http://localhost:8080/EmployeeJaxRPC/services/EmployeeService?wsdl
+http://localhost:8080/EmployeeJaxRPC/services/EmployeeQueryService?wsdl
+http://localhost:8080/EmployeeJaxRPC/services/DepartmentService?wsdl
+http://localhost:8080/EmployeeJaxRPC/services/AuthService?wsdl
+
+TESTING WITH CURL
+-----------------
+# Get Departments
+curl -X POST http://localhost:8080/EmployeeJaxRPC/services/DepartmentService \
+  -H "Content-Type: text/xml" \
+  -H "SOAPAction: http://example.com/department/service/v1/GetDepartments" \
+  -d @samples/requests/GetDepartments-Request.xml
+
+# Login
+curl -X POST http://localhost:8080/EmployeeJaxRPC/services/AuthService \
+  -H "Content-Type: text/xml" \
+  -H "SOAPAction: login" \
+  -d @samples/requests/Login-Request.xml
+
+# Create Employee
+curl -X POST http://localhost:8080/EmployeeJaxRPC/services/EmployeeService \
+  -H "Content-Type: text/xml" \
+  -H "SOAPAction: CreateEmployee" \
+  -d @samples/requests/CreateEmployee-Request.xml
+
+# Get Employee
+curl -X POST http://localhost:8080/EmployeeJaxRPC/services/EmployeeService \
+  -H "Content-Type: text/xml" \
+  -H "SOAPAction: GetEmployee" \
+  -d @samples/requests/GetEmployee-Request.xml
+
+# Search Employees
+curl -X POST http://localhost:8080/EmployeeJaxRPC/services/EmployeeQueryService \
+  -H "Content-Type: text/xml" \
+  -H "SOAPAction: http://example.com/employee/service/v1/SearchEmployee" \
+  -d @samples/requests/SearchEmployee-Request.xml
+
+PROJECT STRUCTURE
+-----------------
+WSDLs/              - WSDL contract files
+xsd/                - XML Schema definitions
+src/main/java/      - Service implementation code
+src/main/resources/ - Configuration files (log4j.properties)
+config/             - Deployment descriptors (web.xml, server-config.wsdd)
+lib/                - Required JAR dependencies
+generated/java/     - Generated code (created by build)
+classes/            - Compiled classes (created by build)
+dist/               - WAR file (created by build)
+samples/requests/   - Sample SOAP request XML files
+
+CONFIGURATION FILES
+-------------------
+build.xml           - ANT build script
+build.properties    - Build configuration
+config/web.xml      - Web application descriptor
+config/server-config.wsdd - Axis deployment descriptor
+config/jaxrpc-mapping.xml - JAX-RPC type mappings
+
+DOCUMENTATION
+-------------
+README.md           - Complete documentation (502 lines)
+QUICKSTART.md       - Quick start guide (301 lines)
+PROJECT_SUMMARY.md  - Project overview and summary
+lib/DEPENDENCIES.md - Dependency information
+BUILD_COMMANDS.txt  - This file
+
+TROUBLESHOOTING
+---------------
+Problem: Build fails
+Solution: Check all JARs are in lib/ directory
+
+Problem: Services not found
+Solution: Verify server-config.wsdd is in WEB-INF
+
+Problem: ClassNotFoundException
+Solution: Ensure all JARs are in WEB-INF/lib in WAR
+
+Problem: SOAP Fault
+Solution: Check SOAPAction header and namespace in request
+
+LOGS LOCATION
+-------------
+Application: ${server}/logs/employee-jaxrpc.log
+Performance: ${server}/logs/performance.log
+Security:    ${server}/logs/security-audit.log
+
+SUPPORT
+-------
+For detailed information:
+- See README.md for complete documentation
+- See QUICKSTART.md for step-by-step setup
+- See PROJECT_SUMMARY.md for project overview
+
+================================================================================
+Version: 1.0.0 | Technology: JAX-RPC, Apache Axis 1.4, Apache ANT
+================================================================================

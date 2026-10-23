@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EmployeeJaxRPC" default="package" basedir=".">
+    
+    <!-- ================================================================== -->
+    <!-- Property Definitions                                                -->
+    <!-- ================================================================== -->
+    <property file="build.properties"/>
+    
+    <!-- Project Properties -->
+    <property name="project.name" value="EmployeeJaxRPC"/>
+    <property name="project.version" value="1.0.0"/>
+    
+    <!-- Directory Properties -->
+    <property name="src.dir" location="src/main/java"/>
+    <property name="resources.dir" location="src/main/resources"/>
+    <property name="generated.dir" location="generated/java"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="classes.dir" location="classes"/>
+    <property name="dist.dir" location="dist"/>
+    <property name="config.dir" location="config"/>
+    <property name="wsdl.dir" location="WSDLs"/>
+    <property name="xsd.dir" location="xsd"/>
+    <property name="meta.dir" location="META-INF"/>
+    
+    <!-- Build Properties -->
+    <property name="war.name" value="${project.name}.war"/>
+    <property name="javac.source" value="1.8"/>
+    <property name="javac.target" value="1.8"/>
+    <property name="javac.debug" value="true"/>
+    
+    <!-- JAX-RPC Properties -->
+    <property name="axis.home" value="${lib.dir}"/>
+    <property name="package.base" value="com.example"/>
+    
+    <!-- ================================================================== -->
+    <!-- Classpath Definitions                                               -->
+    <!-- ================================================================== -->
+    <path id="compile.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <path id="axis.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="axis.jar"/>
+            <include name="axis-ant.jar"/>
+            <include name="jaxrpc.jar"/>
+            <include name="saaj.jar"/>
+            <include name="commons-discovery-0.2.jar"/>
+            <include name="commons-logging-1.0.4.jar"/>
+            <include name="wsdl4j-1.5.1.jar"/>
+            <include name="activation.jar"/>
+            <include name="mail.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- ================================================================== -->
+    <!-- Task Definitions                                                    -->
+    <!-- ================================================================== -->
+    <taskdef name="axis-wsdl2java"
+             classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask"
+             classpathref="axis.classpath"/>
+    
+    <taskdef name="axis-java2wsdl"
+             classname="org.apache.axis.tools.ant.wsdl.Java2WsdlAntTask"
+             classpathref="axis.classpath"/>
+    
+    <!-- ================================================================== -->
+    <!-- Target: init                                                        -->
+    <!-- ================================================================== -->
+    <target name="init" description="Initialize build environment">
+        <echo message="========================================"/>
+        <echo message="Building ${project.name} ${project.version}"/>
+        <echo message="========================================"/>
+        <tstamp>
+            <format property="build.time" pattern="yyyy-MM-dd HH:mm:ss"/>
+        </tstamp>
+        <echo message="Build Time: ${build.time}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${generated.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: clean                                                       -->
+    <!-- ================================================================== -->
+    <target name="clean" description="Clean all build artifacts">
+        <echo message="Cleaning build artifacts..."/>
+        <delete dir="${classes.dir}"/>
+        <delete dir="${generated.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete>
+            <fileset dir="." includes="**/*.class"/>
+        </delete>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: generate-employee-service                                   -->
+    <!-- ================================================================== -->
+    <target name="generate-employee-service" depends="init" 
+            description="Generate Java artifacts from EmployeeService WSDL">
+        <echo message="Generating EmployeeService artifacts..."/>
+        <axis-wsdl2java
+            output="${generated.dir}"
+            verbose="true"
+            url="${wsdl.dir}/EmployeeService.wsdl"
+            serverside="true"
+            skeletondeploy="true"
+            noimports="false"
+            timeout="45000"
+            testcase="false"
+            all="true">
+            <mapping
+                namespace="http://example.com/employee/service/v1"
+                package="${package.base}.employee.service.v1"/>
+            <mapping
+                namespace="http://example.com/employee/v1"
+                package="${package.base}.employee.v1"/>
+            <mapping
+                namespace="http://example.com/common/v1"
+                package="${package.base}.common.v1"/>
+            <mapping
+                namespace="http://example.com/header/v1"
+                package="${package.base}.header.v1"/>
+        </axis-wsdl2java>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: generate-employee-query                                     -->
+    <!-- ================================================================== -->
+    <target name="generate-employee-query" depends="init"
+            description="Generate Java artifacts from EmployeeQuery WSDL">
+        <echo message="Generating EmployeeQueryService artifacts..."/>
+        <axis-wsdl2java
+            output="${generated.dir}"
+            verbose="true"
+            url="${wsdl.dir}/EmployeeQuery.wsdl"
+            serverside="true"
+            skeletondeploy="true"
+            noimports="false"
+            timeout="45000"
+            testcase="false"
+            all="true">
+            <mapping
+                namespace="http://example.com/employee/service/v1"
+                package="${package.base}.employee.service.v1"/>
+            <mapping
+                namespace="http://example.com/employee/v1"
+                package="${package.base}.employee.v1"/>
+        </axis-wsdl2java>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: generate-department-service                                 -->
+    <!-- ================================================================== -->
+    <target name="generate-department-service" depends="init"
+            description="Generate Java artifacts from DepartmentService WSDL">
+        <echo message="Generating DepartmentService artifacts..."/>
+        <axis-wsdl2java
+            output="${generated.dir}"
+            verbose="true"
+            url="${wsdl.dir}/DepartmentService.wsdl"
+            serverside="true"
+            skeletondeploy="true"
+            noimports="false"
+            timeout="45000"
+            testcase="false"
+            all="true">
+            <mapping
+                namespace="http://example.com/department/service/v1"
+                package="${package.base}.department.service.v1"/>
+            <mapping
+                namespace="http://example.com/department/v1"
+                package="${package.base}.department.v1"/>
+        </axis-wsdl2java>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: generate-auth-service                                       -->
+    <!-- ================================================================== -->
+    <target name="generate-auth-service" depends="init"
+            description="Generate Java artifacts from AuthService WSDL">
+        <echo message="Generating AuthService artifacts..."/>
+        <axis-wsdl2java
+            output="${generated.dir}"
+            verbose="true"
+            url="${wsdl.dir}/AuthService.wsdl"
+            serverside="true"
+            skeletondeploy="true"
+            noimports="false"
+            timeout="45000"
+            testcase="false"
+            all="true">
+            <mapping
+                namespace="http://example.com/auth/service/v1"
+                package="${package.base}.auth.service.v1"/>
+            <mapping
+                namespace="http://example.com/common/v1"
+                package="${package.base}.common.v1"/>
+            <mapping
+                namespace="http://example.com/header/v1"
+                package="${package.base}.header.v1"/>
+        </axis-wsdl2java>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: generate                                                    -->
+    <!-- ================================================================== -->
+    <target name="generate" 
+            depends="generate-employee-service,generate-employee-query,generate-department-service,generate-auth-service"
+            description="Generate all Java artifacts from WSDLs">
+        <echo message="All WSDL artifacts generated successfully"/>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: compile-generated                                           -->
+    <!-- ================================================================== -->
+    <target name="compile-generated" depends="generate"
+            description="Compile generated Java sources">
+        <echo message="Compiling generated sources..."/>
+        <javac srcdir="${generated.dir}"
+               destdir="${classes.dir}"
+               source="${javac.source}"
+               target="${javac.target}"
+               debug="${javac.debug}"
+               includeantruntime="false"
+               encoding="UTF-8">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: compile                                                     -->
+    <!-- ================================================================== -->
+    <target name="compile" depends="compile-generated"
+            description="Compile all Java sources">
+        <echo message="Compiling implementation sources..."/>
+        <javac srcdir="${src.dir}"
+               destdir="${classes.dir}"
+               source="${javac.source}"
+               target="${javac.target}"
+               debug="${javac.debug}"
+               includeantruntime="false"
+               encoding="UTF-8">
+            <classpath refid="compile.classpath"/>
+            <classpath path="${classes.dir}"/>
+        </javac>
+        
+        <!-- Copy resources -->
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: package                                                     -->
+    <!-- ================================================================== -->
+    <target name="package" depends="compile"
+            description="Package application as WAR file">
+        <echo message="Creating WAR file..."/>
+        
+        <!-- Create WAR structure -->
+        <war destfile="${dist.dir}/${war.name}" webxml="${config.dir}/web.xml">
+            
+            <!-- Add compiled classes -->
+            <classes dir="${classes.dir}"/>
+            
+            <!-- Add libraries -->
+            <lib dir="${lib.dir}">
+                <include name="axis.jar"/>
+                <include name="jaxrpc.jar"/>
+                <include name="saaj.jar"/>
+                <include name="commons-discovery-0.2.jar"/>
+                <include name="commons-logging-1.0.4.jar"/>
+                <include name="wsdl4j-1.5.1.jar"/>
+                <include name="activation.jar"/>
+                <include name="mail.jar"/>
+                <include name="log4j-1.2.17.jar"/>
+            </lib>
+            
+            <!-- Add WSDLs and XSDs -->
+            <fileset dir=".">
+                <include name="WSDLs/**/*.wsdl"/>
+                <include name="xsd/**/*.xsd"/>
+            </fileset>
+            
+            <!-- Add server-config.wsdd -->
+            <webinf dir="${config.dir}">
+                <include name="server-config.wsdd"/>
+                <include name="jaxrpc-mapping.xml"/>
+            </webinf>
+            
+            <!-- Add META-INF resources -->
+            <metainf dir="${meta.dir}">
+                <include name="**/*"/>
+            </metainf>
+            
+            <!-- Add manifest -->
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-Date" value="${build.time}"/>
+                <attribute name="Implementation-Title" value="${project.name}"/>
+                <attribute name="Implementation-Version" value="${project.version}"/>
+            </manifest>
+        </war>
+        
+        <echo message="WAR file created: ${dist.dir}/${war.name}"/>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: deploy                                                      -->
+    <!-- ================================================================== -->
+    <target name="deploy" depends="package"
+            description="Deploy WAR to application server">
+        <echo message="Deploying to application server..."/>
+        <echo message="Copy ${dist.dir}/${war.name} to your application server deployment directory"/>
+        <!-- Add server-specific deployment tasks here -->
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: all                                                         -->
+    <!-- ================================================================== -->
+    <target name="all" depends="clean,package"
+            description="Clean and build everything">
+        <echo message="Build completed successfully!"/>
+    </target>
+    
+    <!-- ================================================================== -->
+    <!-- Target: help                                                        -->
+    <!-- ================================================================== -->
+    <target name="help" description="Display build help">
+        <echo message="========================================"/>
+        <echo message="${project.name} Build System"/>
+        <echo message="========================================"/>
+        <echo message="Available targets:"/>
+        <echo message="  clean                    - Clean all build artifacts"/>
+        <echo message="  generate                 - Generate Java from WSDLs"/>
+        <echo message="  compile                  - Compile all sources"/>
+        <echo message="  package                  - Create WAR file"/>
+        <echo message="  deploy                   - Deploy to app server"/>
+        <echo message="  all                      - Clean and build everything"/>
+        <echo message="  help                     - Display this help"/>
+        <echo message="========================================"/>
+    </target>
+    
+</project>
+
+<!-- Made with Bob -->

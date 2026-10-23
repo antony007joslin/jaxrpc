@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:v1="http://example.com/employee/service/v1"
+                  xmlns:emp="http://example.com/employee/v1"
+                  xmlns:hdr="http://example.com/header/v1">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <v1:CreateEmployeeRequest>
+            <v1:header>
+                <hdr:requestId>REQ-CREATE-001</hdr:requestId>
+                <hdr:timestamp>2026-05-07T13:00:00+05:30</hdr:timestamp>
+                <hdr:sourceSystem>HR_PORTAL</hdr:sourceSystem>
+                <hdr:authToken>TOKEN-admin-12345</hdr:authToken>
+            </v1:header>
+            <v1:employee>
+                <emp:empId>0</emp:empId>
+                <emp:name>John Doe</emp:name>
+                <emp:departmentId>1</emp:departmentId>
+                <emp:salary>75000.00</emp:salary>
+                <emp:isPermanent>true</emp:isPermanent>
+            </v1:employee>
+        </v1:CreateEmployeeRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<!-- Made with Bob -->

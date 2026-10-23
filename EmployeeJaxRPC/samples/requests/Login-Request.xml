@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:v1="http://example.com/auth/service/v1"
+                  xmlns:hdr="http://example.com/header/v1">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <v1:LoginRequest>
+            <v1:header>
+                <hdr:requestId>REQ-LOGIN-001</hdr:requestId>
+                <hdr:timestamp>2026-05-07T13:00:00+05:30</hdr:timestamp>
+                <hdr:sourceSystem>WEB_PORTAL</hdr:sourceSystem>
+            </v1:header>
+            <v1:username>admin</v1:username>
+            <v1:password>admin123</v1:password>
+        </v1:LoginRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<!-- Made with Bob -->

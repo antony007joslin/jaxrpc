@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:emp="http://example.com/employee/v1"
+           xmlns:cmn="http://example.com/common/v1"
+           xmlns:hdr="http://example.com/header/v1"
+           targetNamespace="http://example.com/employee/service/v1"
+           xmlns="http://example.com/employee/service/v1"
+           elementFormDefault="qualified">
+
+    <xs:import namespace="http://example.com/employee/v1"
+               schemaLocation="../employee/employee-types.xsd"/>
+
+    <xs:import namespace="http://example.com/common/v1"
+               schemaLocation="../common/common-types.xsd"/>
+
+    <xs:import namespace="http://example.com/header/v1"
+               schemaLocation="../common/header-types.xsd"/>
+
+    <!-- CREATE -->
+    <xs:element name="CreateEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="header" type="hdr:RequestHeaderType"/>
+                <xs:element name="employee" type="emp:EmployeeType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="cmn:StatusType"/>
+                <xs:element name="empId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- UPDATE -->
+    <xs:element name="UpdateEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="header" type="hdr:RequestHeaderType"/>
+                <xs:element name="employee" type="emp:EmployeeType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="cmn:StatusType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GET -->
+    <xs:element name="GetEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="header" type="hdr:RequestHeaderType"/>
+                <xs:element name="empId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="cmn:StatusType"/>
+                <xs:element name="employee" type="emp:EmployeeType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- DELETE -->
+    <xs:element name="DeleteEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="header" type="hdr:RequestHeaderType"/>
+                <xs:element name="empId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="cmn:StatusType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

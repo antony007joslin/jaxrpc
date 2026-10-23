@@ -1,0 +1,67 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://example.com/auth/service/v1"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:hdr="http://example.com/header/v1"
+ xmlns:cmn="http://example.com/common/v1"
+ targetNamespace="http://example.com/auth/service/v1">
+
+ <types>
+  <xs:schema>
+   <xs:import namespace="http://example.com/header/v1" schemaLocation="../xsd/common/header-types.xsd"/>
+   <xs:import namespace="http://example.com/common/v1" schemaLocation="../xsd/common/common-types.xsd"/>
+   <xs:import namespace="http://example.com/auth/service/v1" schemaLocation="../xsd/auth/auth-types.xsd"/>
+
+   <xs:element name="LoginRequest">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="header" type="hdr:RequestHeaderType"/>
+      <xs:element name="username" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+     </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+   <xs:element name="LoginResponse">
+    <xs:complexType>
+     <xs:sequence>
+      <xs:element name="status" type="cmn:StatusType"/>
+      <xs:element name="token" type="xs:string"/>
+     </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+
+  </xs:schema>
+ </types>
+
+ <message name="LoginRequestMsg">
+  <part name="parameters" element="tns:LoginRequest"/>
+ </message>
+
+ <message name="LoginResponseMsg">
+  <part name="parameters" element="tns:LoginResponse"/>
+ </message>
+
+ <portType name="AuthPortType">
+  <operation name="Login">
+   <input message="tns:LoginRequestMsg"/>
+   <output message="tns:LoginResponseMsg"/>
+  </operation>
+ </portType>
+
+ <binding name="AuthBinding" type="tns:AuthPortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="Login">
+   <soap:operation soapAction="login"/>
+   <input><soap:body use="literal"/></input>
+   <output><soap:body use="literal"/></output>
+  </operation>
+ </binding>
+
+ <service name="AuthService">
+  <port name="AuthPort" binding="tns:AuthBinding">
+   <soap:address location="http://localhost:8080/services/AuthService"/>
+  </port>
+ </service>
+
+</definitions>
